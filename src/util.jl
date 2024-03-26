@@ -1,7 +1,7 @@
 function check_node_fields(G)
     fields = node_fields(G)
     
-    for v in vertices(G)
+    for v in Graphs.vertices(G)
         att = props(G, v)
         if length(att) != length(fields)
             @warn att, " Field number is different. ", fields
@@ -20,7 +20,7 @@ end
 function check_edge_fields(G)
     fields = edge_fields(G)
 
-    for e in edges(G)
+    for e in Graphs.edges(G)
         att = props(G, e)
         if length(att) != length(fields)
             @warn att, " Field number is different. ", fields
@@ -38,7 +38,7 @@ end
 
 function node_fields(G)
     fields = Set{Symbol}()
-    for v in vertices(G)
+    for v in Graphs.vertices(G)
         for (name,val) in props(G, v)
             push!(fields, name)
         end
@@ -48,7 +48,7 @@ end
 
 function edge_fields(G)
     fields = Set{Symbol}()
-    for e in edges(G)
+    for e in Graphs.edges(G)
         for (name,val) in props(G, e)
             push!(fields, name)
         end
@@ -62,7 +62,7 @@ get dict of {:orginal_id=>current_id}.
 """
 function gmlid2metaid(G) 
     ids = Dict{String, Int}()
-    for v in vertices(G)
+    for v in Graphs.vertices(G)
         ids[ props(G, v)[:original_id] ] = v
     end
     return ids

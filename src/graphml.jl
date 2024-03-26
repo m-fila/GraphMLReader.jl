@@ -39,7 +39,7 @@ function _graphml_read_one_graph(reader::EzXML.StreamReader, isdirected::Bool, n
     edge_attr = Dict{Tuple{Int,Int}, Any}()   # id: {name1:value, ...}
     nodes = Dict{String,Int}()
 
-    xedges = Vector{LightGraphs.Edge}()
+    xedges = Vector{Graphs.SimpleDiGraphEdge}()
     nodeid = 1
     for typ in reader
         if typ == EzXML.READER_ELEMENT
@@ -54,7 +54,7 @@ function _graphml_read_one_graph(reader::EzXML.StreamReader, isdirected::Bool, n
             elseif elname == "edge"
                 src = reader["source"]
                 tar = reader["target"]
-                push!(xedges, LightGraphs.Edge(nodes[src], nodes[tar]))
+                push!(xedges, Graphs.SimpleDiGraphEdge(nodes[src], nodes[tar]))
 
                 att = get_attr(reader, edge_attr_t)
                 if length(att) > 0
@@ -72,7 +72,7 @@ function _graphml_read_one_graph(reader::EzXML.StreamReader, isdirected::Bool, n
     end
 
     for edge in xedges
-        add_edge!(g, edge)
+        Graphs.add_edge!(g.graph, edge)
     end
     for (k, att) in edge_attr
         set_props!(g, k[1], k[2], att)

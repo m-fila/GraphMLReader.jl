@@ -1,7 +1,9 @@
 module GraphMLReader
+
 using EzXML
 using LightGraphs
 using MetaGraphs
+using Graphs
 
 export loadgraphml,
     node_fields, edge_fields,
