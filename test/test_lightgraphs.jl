@@ -5,7 +5,7 @@
     G = GraphMLReader.loadgraphml(file_path);
     ids = gmlid2metaid(G)
     weightfield!(G, :length)
-    w = weights(G)
+    w = MetaGraphs.weights(G)
 
     #"shortest path of 20 original vertices" begin
     file_path = "test_data/origin.json"
@@ -15,7 +15,7 @@
     i = 0
     for id_origin in origin_ids[1:20]
         id = ids[ id_origin ]
-        t = @belapsed dijkstra_shortest_paths($G, [$id], $w) samples=3
+        t = @belapsed MetaGraphs.dijkstra_shortest_paths($G, [$id], $w) samples=3
         push!(ts, t)
         i += 1
         @show i
