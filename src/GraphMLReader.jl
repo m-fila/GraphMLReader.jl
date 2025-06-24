@@ -1,7 +1,6 @@
 module GraphMLReader
 
 using EzXML
-using LightGraphs
 using MetaGraphs
 using Graphs
 
